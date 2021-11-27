@@ -39,6 +39,11 @@ function object3DSelector(scope, filters) {
     if(!filters){
         filters = [];
     }
-    return getDescendantTree(scope).filter(item => filters.filter(_item => item[Object.keys(_item)[0]] === _item[Object.keys(_item)[0]]).length === filters.length);
+    if(filters.join){
+        return getDescendantTree(scope).filter(item => filters.filter(_item => item[Object.keys(_item)[0]] === _item[Object.keys(_item)[0]]).length === filters.length);
+    }
+    else{
+        return getDescendantTree(scope).filter(item => Object.keys(filters).filter(_item => item[_item] === filters[_item]).length === Object.keys(filters).length);
+    }
 }
 export {setRotation, RotationAxis, getRaycastIntersections, object3DSelector}
