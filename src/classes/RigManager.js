@@ -8,6 +8,7 @@ export default class RigManager{
         this.renderer = renderer;
         this.scene = scene;
         this.camera = camera;
+        // console.log(object3DSelector(this.model, {type: 'Bone'}).map(item => item.name));
     }
     getBoneByName(name){
         return object3DSelector(this.model, {type: 'Bone', name})[0];
@@ -34,7 +35,9 @@ export default class RigManager{
         for(let i = 0; i < valuesAndTimes.length; i++){
             if(!states || states.includes(this.currentState)){
                 await this.rotateTo(bone, axis, valuesAndTimes[i], () => {
-                    this.renderer.render(this.scene, this.camera);
+                    if(this.renderer){
+                        this.renderer.render(this.scene, this.camera);
+                    }
                 });
             }
             else{
